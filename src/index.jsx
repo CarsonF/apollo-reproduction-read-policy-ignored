@@ -87,7 +87,7 @@ function App() {
           {data?.people.map(person => (
             <li key={person.id} style={{ marginBottom: '8px' }}>
               <span>{person.name}</span>
-              <div>Created: {new Date(person.createdAt).toLocaleString()}</div>
+              <div>Created: {person.createdAt instanceof Date ? person.createdAt.toLocaleString() : 'Found the error - createdAt is not Date object'}</div>
             </li>
           ))}
         </ul>
@@ -97,8 +97,18 @@ function App() {
 }
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link
+  cache: new InMemoryCache({
+    typePolicies: {
+      Person: {
+        fields: {
+          createdAt: {
+            read: existing => existing ? new Date(existing) : undefined,
+          },
+        },
+      },
+    },
+  }),
+  link,
 });
 
 const container = document.getElementById("root");

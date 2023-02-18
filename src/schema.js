@@ -12,13 +12,14 @@ const PersonType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
   },
 });
 
 const peopleData = [
-  { id: 1, name: 'John Smith' },
-  { id: 2, name: 'Sara Smith' },
-  { id: 3, name: 'Budd Deey' },
+  { id: 1, name: 'John Smith', createdAt: '2020-01-01' },
+  { id: 2, name: 'Sara Smith', createdAt: '2020-01-02' },
+  { id: 3, name: 'Budd Deey', createdAt: '2020-01-03' },
 ];
 
 const QueryType = new GraphQLObjectType({
@@ -43,6 +44,7 @@ const MutationType = new GraphQLObjectType({
         const person = {
           id: peopleData[peopleData.length - 1].id + 1,
           name,
+          createdAt: new Date().toISOString(),
         };
 
         peopleData.push(person);

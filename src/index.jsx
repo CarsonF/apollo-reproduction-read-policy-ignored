@@ -18,6 +18,7 @@ const ALL_PEOPLE = gql`
     people {
       id
       name
+      createdAt
     }
   }
 `;
@@ -84,7 +85,10 @@ function App() {
       ) : (
         <ul>
           {data?.people.map(person => (
-            <li key={person.id}>{person.name}</li>
+            <li key={person.id} style={{ marginBottom: '8px' }}>
+              <span>{person.name}</span>
+              <div>Created: {new Date(person.createdAt).toLocaleString()}</div>
+            </li>
           ))}
         </ul>
       )}

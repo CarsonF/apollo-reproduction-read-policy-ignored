@@ -27,7 +27,10 @@ const ADD_PERSON = gql`
   mutation AddPerson($name: String) {
     addPerson(name: $name) {
       id
+      # intentionally omitting createdAt to demonstrate error
+      # but omitting name also causes error
       name
+      # createdAt
     }
   }
 `;

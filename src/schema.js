@@ -27,7 +27,7 @@ const QueryType = new GraphQLObjectType({
   fields: {
     people: {
       type: new GraphQLList(PersonType),
-      resolve: () => peopleData,
+      resolve: () => peopleData.slice(0, 3),
     },
   },
 });

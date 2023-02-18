@@ -1,4 +1,5 @@
 /*** APP ***/
+import { offsetLimitPagination } from '@apollo/client/utilities';
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -102,6 +103,11 @@ function App() {
 const client = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
+      Query: {
+        fields: {
+          people: offsetLimitPagination(),
+        },
+      },
       Person: {
         fields: {
           createdAt: {

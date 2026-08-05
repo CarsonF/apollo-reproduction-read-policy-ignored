@@ -8,20 +8,23 @@ function delay(wait) {
 }
 
 export const link = new ApolloLink(operation => {
-  return new Observable(async observer => {
-    const { query, operationName, variables } = operation;
-    await delay(300);
-    try {
-      const result = await graphql({
-        schema,
-        source: print(query),
-        variableValues: variables,
-        operationName,
-      });
-      observer.next(result);
-      observer.complete();
-    } catch (err) {
-      observer.error(err);
-    }
+  return new Observable(observer => {
+    // Apollo Client 4 uses RxJS observables, whose subscriber must not be async.
+    Promise.resolve().then(async () => {
+      const { query, operationName, variables } = operation;
+      await delay(300);
+      try {
+        const result = await graphql({
+          schema,
+          source: print(query),
+          variableValues: variables,
+          operationName,
+        });
+        observer.next(result);
+        observer.complete();
+      } catch (err) {
+        observer.error(err);
+      }
+    });
   });
 });

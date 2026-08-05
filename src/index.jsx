@@ -1,15 +1,9 @@
 /*** APP ***/
-import { offsetLimitPagination } from '@apollo/client/utilities';
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  gql,
-  useQuery,
-  useMutation,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { offsetLimitPagination } from "@apollo/client/utilities";
+import { ApolloProvider, useQuery, useMutation } from "@apollo/client/react";
 
 import { link } from "./link.js";
 import "./index.css";
